@@ -25,7 +25,7 @@ DebugHelper.debug = {
 DebugHelper.config = function (settings) {
     appNamespace = settings.appNamespace;
     if (settings.force) {
-        forceNamespaceLoggin(appNamespace + ":*");
+        _debug2.default.enable(appNamespace + ":*");
     }
 };
 
@@ -34,13 +34,8 @@ function DebugHelper(namespace, force) {
     namespace = appNamespace + ":" + namespace;
 
     if (force) {
-        forceNamespaceLoggin(namespace);
+        _debug2.default.enable(namespace);
     }
     return (0, _debug2.default)(namespace);
-}
-
-function forceNamespaceLoggin(namespace) {
-    var debugNamespaces = process.env.DEBUG || "";
-    process.env.DEBUG = namespace + "," + debugNamespaces;
 }
 //# sourceMappingURL=index.js.map
