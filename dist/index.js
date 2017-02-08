@@ -22,15 +22,6 @@ var defaults = {
 
 var _options = void 0;
 
-debugBuilder.debug = {
-    test: debugBuilder("test"),
-    production: debugBuilder("production"),
-    development: debugBuilder("development"),
-    staging: debugBuilder("staging"),
-    error: debugBuilder("error"),
-    info: debugBuilder("info")
-};
-
 debugBuilder.config = function (options) {
     _options = _lodash2.default.defaults({}, options, defaults);
 };
@@ -46,4 +37,13 @@ function debugBuilder(namespace, force) {
     }
     return deb;
 }
+
+debugBuilder.debug = {
+    test: debugBuilder("test"),
+    production: debugBuilder("production"),
+    development: debugBuilder("development"),
+    staging: debugBuilder("staging"),
+    error: debugBuilder("error"),
+    info: debugBuilder("info")
+};
 //# sourceMappingURL=index.js.map

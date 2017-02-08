@@ -9,15 +9,6 @@ const defaults = {
 
 let _options
 
-debugBuilder.debug = {
-    test: debugBuilder("test"),
-    production: debugBuilder("production"),
-    development: debugBuilder("development"),
-    staging: debugBuilder("staging"),
-    error: debugBuilder("error"),
-    info: debugBuilder("info")
-}
-
 debugBuilder.config = function (options) {
     _options = _.defaults({}, options, defaults)
 }
@@ -32,4 +23,13 @@ export default function debugBuilder(namespace, force) {
         deb.enabled = true
     }
     return deb
+}
+
+debugBuilder.debug = {
+    test: debugBuilder("test"),
+    production: debugBuilder("production"),
+    development: debugBuilder("development"),
+    staging: debugBuilder("staging"),
+    error: debugBuilder("error"),
+    info: debugBuilder("info")
 }
