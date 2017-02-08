@@ -24,10 +24,23 @@ DebugHelper.debug = {
 
 DebugHelper.config = function (settings) {
     appNamespace = settings.appNamespace;
+    if (settings.force) {
+        forceNamespaceLoggin(appNamespace + ":*");
+    }
 };
 
-function DebugHelper(namespace) {
+function DebugHelper(namespace, force) {
     namespace = "string" === typeof namespace ? namespace : namespace.definition.name;
-    return (0, _debug2.default)(appNamespace + ":" + namespace);
+    namespace = appNamespace + ":" + namespace;
+
+    if (force) {
+        forceNamespaceLoggin(namespace);
+    }
+    return (0, _debug2.default)(namespace);
+}
+
+function forceNamespaceLoggin(namespace) {
+    var debugNamespaces = process.env.DEBUG || "";
+    debugNamespaces = namespace + "," + debugNamespaces;
 }
 //# sourceMappingURL=index.js.map

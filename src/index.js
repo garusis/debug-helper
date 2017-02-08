@@ -14,9 +14,22 @@ DebugHelper.debug = {
 
 DebugHelper.config = function (settings) {
     appNamespace = settings.appNamespace
+    if (settings.force) {
+        forceNamespaceLoggin(`${appNamespace}:*`)
+    }
 }
 
-export default function DebugHelper(namespace) {
+export default function DebugHelper(namespace, force) {
     namespace = "string" === typeof namespace ? namespace : namespace.definition.name
-    return debug(`${appNamespace}:${namespace}`)
+    namespace = `${appNamespace}:${namespace}`
+
+    if (force) {
+        forceNamespaceLoggin(namespace)
+    }
+    return debug(namespace)
+}
+
+function forceNamespaceLoggin(namespace) {
+    let debugNamespaces = process.env.DEBUG || ""
+    debugNamespaces = `${namespace},${debugNamespaces}`
 }
