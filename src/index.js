@@ -31,5 +31,5 @@ export default function DebugHelper(namespace, force) {
 
 function forceNamespaceLoggin(namespace) {
     let debugNamespaces = process.env.DEBUG || ""
-    debugNamespaces = `${namespace},${debugNamespaces}`
+    process.env.DEBUG = `${namespace},${debugNamespaces}`
 }

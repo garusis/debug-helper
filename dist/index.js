@@ -41,6 +41,6 @@ function DebugHelper(namespace, force) {
 
 function forceNamespaceLoggin(namespace) {
     var debugNamespaces = process.env.DEBUG || "";
-    debugNamespaces = namespace + "," + debugNamespaces;
+    process.env.DEBUG = namespace + "," + debugNamespaces;
 }
 //# sourceMappingURL=index.js.map
