@@ -24,6 +24,11 @@ var _options = void 0;
 
 debugBuilder.config = function (options) {
     _options = _lodash2.default.defaults({}, options, defaults);
+    if (_options.force) {
+        _lodash2.default.forEach(debugBuilder.debug, function (deb) {
+            deb.enabled = true;
+        });
+    }
 };
 debugBuilder.config({});
 

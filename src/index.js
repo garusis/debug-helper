@@ -11,6 +11,11 @@ let _options
 
 debugBuilder.config = function (options) {
     _options = _.defaults({}, options, defaults)
+    if (_options.force) {
+        _.forEach(debugBuilder.debug, function (deb) {
+            deb.enabled = true
+        })
+    }
 }
 debugBuilder.config({})
 
