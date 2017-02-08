@@ -13,7 +13,7 @@ DebugHelper.debug = {
 }
 
 DebugHelper.config = function (settings) {
-    appNamespace
+    appNamespace = settings.appNamespace
 }
 
 export default function DebugHelper(namespace) {
