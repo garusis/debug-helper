@@ -38,7 +38,7 @@ dh.debug.info("info info") //output -> my-app-name:test: info message
 ```
 or create your own decorators
 ```
-const debug = new db("intern-namespace")
+const debug = db("intern-namespace")
 debug("a message") //output -> my-app-name:intern-namespace: a message
 ```
 ### More

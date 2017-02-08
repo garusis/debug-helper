@@ -3,39 +3,47 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = DebugHelper;
+exports.default = debugBuilder;
 
 var _debug = require("debug");
 
 var _debug2 = _interopRequireDefault(_debug);
 
+var _lodash = require("lodash");
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var appNamespace = process.env.DH_APP_NAMESPACE;
-
-DebugHelper.debug = {
-    test: new DebugHelper("test"),
-    production: new DebugHelper("production"),
-    development: new DebugHelper("development"),
-    staging: new DebugHelper("staging"),
-    error: new DebugHelper("error"),
-    info: new DebugHelper("info")
+var defaults = {
+    appNamespace: process.env.DH_APP_NAMESPACE,
+    force: false
 };
 
-DebugHelper.config = function (settings) {
-    appNamespace = settings.appNamespace;
-    if (settings.force) {
-        _debug2.default.enable(appNamespace + ":*");
-    }
+var _options = void 0;
+
+debugBuilder.debug = {
+    test: debugBuilder("test"),
+    production: debugBuilder("production"),
+    development: debugBuilder("development"),
+    staging: debugBuilder("staging"),
+    error: debugBuilder("error"),
+    info: debugBuilder("info")
 };
 
-function DebugHelper(namespace, force) {
-    namespace = "string" === typeof namespace ? namespace : namespace.definition.name;
-    namespace = appNamespace + ":" + namespace;
+debugBuilder.config = function (options) {
+    _options = _lodash2.default.defaults({}, options, defaults);
+};
+debugBuilder.config({});
 
-    if (force) {
-        _debug2.default.enable(namespace);
+function debugBuilder(namespace, force) {
+    namespace = "string" === typeof namespace ? namespace : namespace.name || namespace.definition.name;
+    namespace = _options.appNamespace + ":" + namespace;
+
+    var deb = (0, _debug2.default)(namespace);
+    if (force || _options.force) {
+        deb.enabled = true;
     }
-    return (0, _debug2.default)(namespace);
+    return deb;
 }
 //# sourceMappingURL=index.js.map

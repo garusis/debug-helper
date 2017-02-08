@@ -1,30 +1,35 @@
 "use strict"
 import debug from "debug"
+import _ from "lodash"
 
-let appNamespace = process.env.DH_APP_NAMESPACE
-
-DebugHelper.debug = {
-    test: new DebugHelper("test"),
-    production: new DebugHelper("production"),
-    development: new DebugHelper("development"),
-    staging: new DebugHelper("staging"),
-    error: new DebugHelper("error"),
-    info: new DebugHelper("info")
+const defaults = {
+    appNamespace: process.env.DH_APP_NAMESPACE,
+    force: false
 }
 
-DebugHelper.config = function (settings) {
-    appNamespace = settings.appNamespace
-    if (settings.force) {
-        debug.enable(`${appNamespace}:*`)
-    }
+let _options
+
+debugBuilder.debug = {
+    test: debugBuilder("test"),
+    production: debugBuilder("production"),
+    development: debugBuilder("development"),
+    staging: debugBuilder("staging"),
+    error: debugBuilder("error"),
+    info: debugBuilder("info")
 }
 
-export default function DebugHelper(namespace, force) {
-    namespace = "string" === typeof namespace ? namespace : namespace.definition.name
-    namespace = `${appNamespace}:${namespace}`
+debugBuilder.config = function (options) {
+    _options = _.defaults({}, options, defaults)
+}
+debugBuilder.config({})
 
-    if (force) {
-        debug.enable(namespace)
+export default function debugBuilder(namespace, force) {
+    namespace = "string" === typeof namespace ? namespace : (namespace.name || namespace.definition.name)
+    namespace = `${_options.appNamespace}:${namespace}`
+
+    let deb = debug(namespace)
+    if (force || _options.force) {
+        deb.enabled = true
     }
-    return debug(namespace)
+    return deb
 }
